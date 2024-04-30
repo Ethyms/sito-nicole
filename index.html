@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>101 frasi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Imposta un'altezza minima per il div delle frasi per evitare il movimento del pulsante */
+        #random-quote {
+            min-height: 150px; /* Puoi modificare questo valore per adattarti a frasi più lunghe */
+        }
+    </style>
+</head>
+<body>
+    <!-- Usa Bootstrap container per layout responsive -->
+    <div class="container my-4">
+        <h1 class="text-center">101 frasi</h1>
+
+        <!-- Div per visualizzare la frase motivazionale casuale con altezza minima -->
+        <div id="random-quote" class="text-center my-4">
+            <!-- Frase verrà inserita qui -->
+        </div>
+
+        <!-- Pulsante per generare una nuova frase casuale, centrato -->
+        <div class="text-center">
+            <button id="generate-quote" class="btn btn-primary">Genera frase casuale</button>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS, Popper.js, e jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript per generare frasi casuali -->
+    <script>
+        const motivationalQuotes = [
+        "Quando stai pensando di mollare...ricorda perché hai iniziato - Daniele Pariota",
+        "Il successo non è la chiave della felicità. La felicità è la chiave del successo. Se ami ciò che fai, avrai successo. - Albert Schweitzer",
+        "Non avere paura di prendere strade non convenzionali. È lì che avviene la crescita. - Richard Branson",
+        "Non aspettare l'opportunità, creala. - George Bernard Shaw",
+        "La crescita professionale è un viaggio, non una destinazione. Goditi il processo. - Anonimo",
+        "Non c'è crescita senza cambiamento. Sii aperto alle nuove sfide. - John C. Maxwell",
+        "La vita è ciò che ne fai, quindi assicurati che sia straordinaria. - Mary Kay Ash",
+        "Le sfide sono il carburante del successo. Affrontale con coraggio. - Anonimo",
+        "Il tuo lavoro riempirà gran parte della tua vita, quindi fai ciò che ami e sarai sulla strada giusta. - Steve Jobs",
+        "Il modo migliore per predire il tuo futuro è crearlo. - Abraham Lincoln",
+        "Non contare i giorni, fai in modo che i giorni contino. - Muhammad Ali",
+        "Il codice non funziona? Tranquilla, è solo il modo del computer di chiederti più attenzione.",
+        "Il debug è come un'avventura: non sai mai cosa troverai, ma c'è sempre un mostro da sconfiggere.",
+        "Chi ha bisogno di un caffè quando hai stack trace che ti tengono sveglia tutta la notte?",
+        "Il tuo codice non ha bug; ha solo funzionalità non documentate.",
+        "Il codice è come una poesia, solo con più punti e virgole e meno rime.",
+        "Se qualcosa funziona al primo tentativo, c'è qualcosa di sbagliato. Riprova, magari aggiungi qualche errore!",
+        "Scrivere codice è come cucinare: se nessuno si lamenta, hai fatto un ottimo lavoro. Se qualcuno si lamenta, forse serve più sale.",
+        "Perché fare jogging quando puoi passare ore a correre dietro ai bug nel tuo codice?",
+        "La vita è breve, il codice è complicato, e il tasto F5 è sempre lì per aiutarti.",
+        "Quando ti chiedono perché non stai sorridendo, rispondi che stai solo risolvendo un problema... o creando uno nuovo!",
+        "La documentazione è come il denaro: tutti sanno che dovrebbe esserci, ma nessuno sa mai dove trovarla.",
+        "Quando un programma funziona, è perché qualcuno ha passato ore a correggerlo senza prendersi il merito.",
+        "Se vuoi vedere un programmatore felice, dagli una nuova tastiera. Se vuoi vederlo triste, parlagli di riunioni.",
+        "Il miglior programmatore non è quello che scrive il codice più elegante, ma quello che trova i bug più velocemente.",
+        "L'innovazione è ciò che distingue un leader da un seguace. - Steve Jobs",
+        "Il debugging è come una gita al parco dei divertimenti, solo con meno divertimento e più loop infiniti.",
+        "Le finestre pop-up sono la natura che cerca di dirti che qualcosa non va nel tuo codice.",
+        "Quando pensi di aver trovato la soluzione, il tuo codice ti dimostra che non è così. Grazie, codice.",
+        "Se sei felice con il tuo codice, controllalo di nuovo. Sicuramente c'è qualcosa che hai dimenticato.",
+        "La differenza tra un programmatore e un mago? Il mago conosce i suoi trucchi; il programmatore li scopre mentre li usa.",
+        "Non importa quanto tu progredisca, c'è sempre qualcosa di nuovo da imparare. Abbraccia la crescita. - Anonimo",
+        "Il tuo potenziale è illimitato, basta che tu creda in te stessa e lavori sodo. - Oprah Winfrey",
+        "Non c'è successo senza perseveranza. Continua a spingere, anche quando è difficile. - Anonimo",
+        "Per crescere professionalmente, devi essere disposto a uscire dalla tua zona di comfort. - Brian Tracy",
+        "I migliori leader sono anche i migliori studenti. Non smettere mai di imparare. - Anonimo",
+        "Il fallimento è solo un'opportunità per ricominciare, questa volta in modo più intelligente. - Henry Ford",
+        "La crescita non è sempre facile, ma è sempre necessaria per il successo. - Anonimo",
+        "La chiave per la crescita professionale è essere curiosi e aperti a nuove idee. - Anonimo",
+        "Il vero successo si misura dalla tua capacità di superare gli ostacoli e continuare a crescere. - Anonimo",
+        "La crescita professionale è un viaggio senza fine. Assicurati di godertelo. - Anonimo",
+
+        "Un buon programmatore sa quando commentare il codice. Un ottimo programmatore sa quando mentire nei commenti.",
+        "Non esiste il bug perfetto. Ogni bug può essere trovato se hai abbastanza tempo e disperazione.",
+        "Scrivere codice è facile; renderlo leggibile e comprensibile è un superpotere.",
+        "Il debugging è come il Sudoku: se non trovi gli errori, vuol dire che non stai cercando abbastanza bene.",
+        "Un vero programmatore sa che il CTRL + Z è il miglior tasto del mondo.",
+        "La tastiera è come la bacchetta di un mago. Se il codice non funziona, forse è ora di cambiare bacchetta.",
+        "Quando un programmatore dice 'Questo è facile', preparati a una lunga notte.",
+        "La documentazione è la parte più importante del codice, finché non si dimentica di scriverla.",
+        "Se il tuo codice funziona al primo tentativo, probabilmente non hai capito cosa stai facendo.",
+        "Le opportunità non accadono, le crei tu. - Chris Grosser",
+        "Il successo è la somma di piccoli sforzi, ripetuti giorno dopo giorno. - Robert Collier",
+        "Non arrenderti. Soffri adesso e vivi il resto della tua vita da campione. - Muhammad Ali",
+        "Se non progetti il tuo piano di vita, probabilmente cadrai nel piano di qualcun altro. E indovina cosa hanno in serbo per te? Non molto. - Jim Rohn",
+        "La differenza tra un ostacolo e un'opportunità è il nostro atteggiamento verso di essi. - Sidlow Baxter",
+        "L'unico modo per fare un ottimo lavoro è amare quello che fai. - Steve Jobs",
+        "Non devi vedere l'intera scala, basta fare il primo passo. - Martin Luther King Jr.",
+        "Il coraggio è resistenza alla paura, padronanza della paura, non assenza di paura. - Mark Twain",
+        "Il talento vince le partite, ma il lavoro di squadra e l'intelligenza vincono i campionati. - Michael Jordan",
+        "Il sole non splenderà sempre, quindi è meglio imparare a ballare sotto la pioggia. - Mac Miller",
+        "Non sono perfetto, ma sono sempre me stesso. Non cerco di essere qualcun altro. - Mac Miller",
+        "La vita è solo un sogno, e noi stiamo vivendo un incubo. - Mac Miller",
+        "La mia età non definisce chi sono. Sono ciò che ho fatto e ciò che farò. - Mac Miller",
+        "Se non ti prendi cura di te stesso, nessun altro lo farà. - Mac Miller",
+        "L'amore è solo una parola finché qualcuno ti dà una definizione. - Mac Miller",
+        "Cadiamo solo per imparare a rialzarci. - Mac Miller",
+        "A volte devi perdere tutto per apprezzare ciò che hai. - Mac Miller",
+        "Ci sono cose che il tempo non potrà mai cancellare. - Mac Miller",
+        "Il viaggio è la parte più importante, non la destinazione. - Mac Miller",
+        "Non puoi appassire se sei consapevole del tuo valore. Sii te stesso e nessuno potrà fermarti. - Beyoncé",
+
+        "Sei tu che decidi il tuo valore. Nessun altro può farlo. - Beyoncé",
+    
+        "Non sono perfetta, ma cerco di essere sempre autentica. E questa è la perfezione per me. - Beyoncé",
+    
+        "La vita è troppo breve per passare del tempo con persone che non ti fanno sentire speciale. - Beyoncé",
+    
+        "Credo che la cosa più attraente in una donna sia la sicurezza. - Beyoncé",
+    
+        "Non sono competitiva con altre donne. Voglio che tutte noi siamo forti e possiamo brillare insieme. - Beyoncé",
+    
+        "È importante concentrarsi su ciò che è positivo e non lasciarsi distrarre dal negativo. - Beyoncé",
+        "La vita è un dono, e non dobbiamo dare nulla per scontato. - Beyoncé",
+        "La bellezza è come ti senti dentro e si riflette nei tuoi occhi. È il non preoccuparsi. - Beyoncé",
+        "L'amore è qualcosa che cresce e si evolve. È la parte più preziosa della vita. - Beyoncé",
+        "Il codice funziona? Chiedilo di nuovo tra 5 minuti, potrebbe aver cambiato idea.",
+
+        "Scrivere codice è come risolvere un mistero: se tutto si risolve in modo lineare, probabilmente c'è qualcosa che non va.",
+    
+        "Il debugger è l'amico che non giudica, anche quando sei tu che hai combinato il disastro.",
+    
+        "Se la programmazione fosse facile, tutti la farebbero. Oh, aspetta, ormai è così!",
+    
+        "Quando pensi di aver risolto un bug, il tuo codice ti sorprenderà con un altro regalo.",
+    
+        "Il refactoring è come una dieta: all'inizio fa male, ma a lungo termine è salutare.",
+    
+        "Il codice è come il vino: più invecchia, più può diventare costoso da mantenere.",
+    
+        "Il computer non fa errori. Sono i programmatori a trovare nuovi modi per farli.",
+    
+        "Perché fare coding in pigiama? Perché i bug non badano al dress code.",
+    
+        "Scrivere codice è un po' come giocare a Jenga: più ti avvicini alla fine, più rischi di far cadere tutto.",
+        "Non ti limiti solo a sognare; ti svegli e vai a lavorare su quei sogni. - Shonda Rhimes",
+
+        "Il successo non è definitivo, il fallimento non è fatale: è il coraggio di continuare che conta. - Winston Churchill",
+    
+        "Il successo è fare ciò che ami e farlo bene. - John Wooden",
+    
+        "Il più grande piacere nella vita è fare ciò che le persone dicono che non puoi fare. - Walter Bagehot",
+    
+        "Non lasciarti scoraggiare dalle critiche. Ricorda, nessuno ha mai eretto una statua in onore di un critico. - Jean Sibelius",
+    
+        "Non puoi controllare il vento, ma puoi regolare le vele. - Dolly Parton",
+    
+        "La chiave del successo è concentrarsi sugli obiettivi, non sugli ostacoli. - Arnold Schwarzenegger",
+    
+        "La vita è il 10% cosa ti succede e il 90% come reagisci. - Charles R. Swindoll",
+    
+        "Il fallimento è l'opportunità di ricominciare con maggiore intelligenza. - Henry Ford",
+    
+        "Il successo non è misurato da ciò che hai, ma dall'impatto che hai sugli altri. - Michelle Obama",
+    
+        "Se puoi sognarlo, puoi farlo. - Walt Disney",
+        "Siamo vivi? Si si - Nicole Novi"
+    ];
+
+        // Funzione per ottenere una frase casuale
+        function getRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
+            return motivationalQuotes[randomIndex];
+        }
+
+        // Seleziona il div in cui verrà visualizzata la frase
+        const quoteDiv = document.getElementById('random-quote');
+
+        // Mostra una frase casuale quando la pagina viene caricata
+        quoteDiv.textContent = getRandomQuote();
+
+        // Pulsante per generare una nuova frase casuale
+        const generateButton = document.getElementById('generate-quote');
+
+        // Aggiungi evento al pulsante per generare una nuova frase casuale
+        generateButton.addEventListener('click', () => {
+            quoteDiv.textContent = getRandomQuote();
+        });
+    </script>
+</body>
+</html>
