@@ -3,29 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>101 frasi</title>
+    <title>101 Frasi Motivazionali</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         /* Imposta un'altezza minima per il div delle frasi per evitare il movimento del pulsante */
         #random-quote {
-            min-height: 150px; /* Puoi modificare questo valore per adattarti a frasi più lunghe */
+            min-height: 150px; /* Regola questo valore per frasi più lunghe */
         }
     </style>
 </head>
 <body>
-    <!-- Usa Bootstrap container per layout responsive -->
     <div class="container my-4">
-        <h1 class="text-center">101 frasi</h1>
+        <h1 class="text-center">101 Frasi Motivazionali</h1>
 
-        <!-- Div per visualizzare la frase motivazionale casuale con altezza minima -->
+        <!-- Div per visualizzare la frase motivazionale -->
         <div id="random-quote" class="text-center my-4">
             <!-- Frase verrà inserita qui -->
         </div>
 
-        <!-- Pulsante per generare una nuova frase casuale, centrato -->
+        <!-- Input per inserire il numero della frase -->
+        <div class="text-center my-4">
+            <input type="number" id="quote-index" class="form-control" placeholder="Inserisci il numero della frase" style="width: 200px; display: inline-block;">
+            <button id="get-quote" class="btn btn-secondary">Ottieni frase</button>
+        </div>
+
+        <!-- Pulsante per generare una nuova frase casuale -->
         <div class="text-center">
             <button id="generate-quote" class="btn btn-primary">Genera frase casuale</button>
         </div>
+        
     </div>
     
     <!-- Bootstrap JS, Popper.js, e jQuery -->
@@ -165,10 +171,20 @@
         "Siamo vivi? Si si - Nicole Novi"
     ];
 
+
         // Funzione per ottenere una frase casuale
         function getRandomQuote() {
             const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
             return motivationalQuotes[randomIndex];
+        }
+
+        // Funzione per ottenere una frase in base a un numero
+        function getQuoteByIndex(index) {
+            if (index >= 0 && index < motivationalQuotes.length+1) {
+                return motivationalQuotes[index-1];
+            } else {
+                return "Numero della frase non valido. Inserisci un numero tra 0 e " + (motivationalQuotes.length - 1);
+            }
         }
 
         // Seleziona il div in cui verrà visualizzata la frase
@@ -177,12 +193,16 @@
         // Mostra una frase casuale quando la pagina viene caricata
         quoteDiv.textContent = getRandomQuote();
 
-        // Pulsante per generare una nuova frase casuale
-        const generateButton = document.getElementById('generate-quote');
-
-        // Aggiungi evento al pulsante per generare una nuova frase casuale
-        generateButton.addEventListener('click', () => {
+        // Evento per generare una nuova frase casuale
+        document.getElementById('generate-quote').addEventListener('click', () => {
             quoteDiv.textContent = getRandomQuote();
+        });
+
+        // Evento per ottenere una frase in base a un numero
+        document.getElementById('get-quote').addEventListener('click', () => {
+            const quoteIndexInput = document.getElementById('quote-index');
+            const quoteIndex = parseInt(quoteIndexInput.value, 10); // Converte l'input in numero intero
+            quoteDiv.textContent = getQuoteByIndex(quoteIndex);
         });
     </script>
 </body>
