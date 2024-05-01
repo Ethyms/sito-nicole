@@ -79,7 +79,7 @@
                     Perché
                 </div>
                 <div class="accordion-content" id="content1">
-                    Non c'era un motivo preciso, mi andava di farlo. E magari un giorno, se avrai voglia di divertirti o cercare ispirazione, potrai riaprire questo sito web.
+                    Non c'era un motivo preciso, mi andava di farlo e basta. Magari un giorno, se avrai voglia di divertirti o cercare ispirazione, potrai sempre riaprire questo sito web.
                     <br>
                     <br>
                     Spero di averti fatto ridere abbastanza.
@@ -264,8 +264,8 @@
 
         function getRandomQuote() {
             currentQuoteIndex = Math.floor(Math.random() * motivationalQuotes.length);
-            showQuote(currentQuoteIndex);
-            return motivationalQuotes[randomIndex];
+            showQuote(currentQuoteIndex-1);
+            return motivationalQuotes[randomIndex-1];
         }
 
         function getQuoteByIndex(index) {
