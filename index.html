@@ -257,13 +257,10 @@
         const quoteDiv = document.getElementById('random-quote');
         const quoteNumber = document.getElementById('quote-number');
         quoteDiv.textContent = motivationalQuotes[index];
-        quoteNumber.textContent = `Frase n°: ${index + 1}`;
+        quoteNumber.textContent = `Frase n°: ${index+1}`;
     }
 
-    document.getElementById('generate-quote').addEventListener('click', () => {
-        currentQuoteIndex = Math.floor(Math.random() * motivationalQuotes.length);
-        showQuote(currentQuoteIndex);
-    });
+ 
 
         function getRandomQuote() {
             currentQuoteIndex = Math.floor(Math.random() * motivationalQuotes.length);
@@ -273,6 +270,7 @@
 
         function getQuoteByIndex(index) {
             if (index >= 0 && index < motivationalQuotes.length+1) {
+                showQuote(index-1);
                 return motivationalQuotes[index-1];
             } else {
                 return "Numero della frase non valido. Inserisci un numero tra 0 e " + (motivationalQuotes.length);
@@ -287,23 +285,20 @@
             const quoteIndexInput = document.getElementById('quote-index');
             const quoteIndex = parseInt(quoteIndexInput.value, 10);
             quoteDiv.textContent = getQuoteByIndex(quoteIndex);
+            currentQuoteIndex=quoteIndex;
         });
 
         document.getElementById('prev-quote').addEventListener('click', () => {
-            if (currentQuoteIndex > 0) {
+            if (currentQuoteIndex > 1) {
                 currentQuoteIndex--;
-                showQuote(currentQuoteIndex);
-            } else {
-                alert("Hai raggiunto l'inizio della lista.");
+                showQuote(currentQuoteIndex-1);
             }
         });
 
         document.getElementById('next-quote').addEventListener('click', () => {
-            if (currentQuoteIndex < motivationalQuotes.length - 1) {
+            if (currentQuoteIndex < motivationalQuotes.length) {
                 currentQuoteIndex++;
-                showQuote(currentQuoteIndex);
-            } else {
-                alert("Hai raggiunto la fine della lista.");
+                showQuote(currentQuoteIndex-1);
             }
         });
 
