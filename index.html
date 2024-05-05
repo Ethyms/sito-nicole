@@ -76,7 +76,7 @@
         <div class="accordion" id="myAccordion">
             <div class="accordion-item">
                 <div class="accordion-header text-center" id="header1">
-                    Perché
+                    Perché tutto questo?
                 </div>
                 <div class="accordion-content" id="content1">
                     Non c'era un motivo preciso, mi andava di farlo e basta. Magari un giorno, se avrai voglia di divertirti o cercare ispirazione, potrai sempre riaprire questo sito web.
@@ -87,10 +87,10 @@
             </div>
             <div class="accordion-item">
                 <div class="accordion-header text-center" id="header2">
-                    Numero Amazon
+                    Codice ritiro
                 </div>
                 <div class="accordion-content" id="content2">
-                    <h1 class="text-center">0000</h1>
+                    <h1 class="text-center">185482</h1>
                 </div>
             </div>
             <div class="accordion-item">
@@ -98,9 +98,9 @@
                     Ritira quì
                 </div>
                 <div class="accordion-content" id="content3">
-                    <a href="https://www.google.it/maps/dir//Corso+Giuseppe+Garibaldi,+45,+80055+Portici+NA/" target="_blank" rel="noopener noreferrer">
-                        <img src="https://i.ibb.co/GvcbHQn/Immagine-2024-05-01-091602.png" class="img-fluid" alt="Descrizione dell'immagine">
-                    </a>                    
+                    <a href="https://www.google.com/maps/dir//Via+Benvenuto+Cellini,+19,+80055+Portici+NA/" target="_blank" rel="noopener noreferrer">
+                        <img src="https://i.ibb.co/7R2CHs7/Immagine-2024-05-05-174645.png" class="img-fluid" alt="Descrizione dell'immagine">
+                    </a>
                 </div>
             </div>
         </div>
@@ -265,7 +265,7 @@
         function getRandomQuote() {
             currentQuoteIndex = Math.floor(Math.random() * motivationalQuotes.length);
             showQuote(currentQuoteIndex-1);
-            return motivationalQuotes[randomIndex-1];
+            return motivationalQuotes[currentQuoteIndex-1];
         }
 
         function getQuoteByIndex(index) {
